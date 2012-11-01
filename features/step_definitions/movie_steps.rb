@@ -1,17 +1,15 @@
 # Add a declarative step here for populating the DB with movies.
 
 Given /the following movies exist/ do |movies_table|
-  movies_table.hashes.each do |movie|
-   steps %Q{
+  steps %Q{
     Given I am on the RottenPotatoes home page
-    When I follow "Add new movie"
-    Then I should be on the Create New Movie page
-    When I fill in "Title" with "#{movie[:title]}"
-    And I select "#{movie[:rating]}" from "Rating"
-    And I press "Save Changes"
-    Then I should be on the RottenPotatoes home page
-    And I should see "#{movie[:title]}"
-   }
+  }
+  movies_table.hashes.each do |movie|
+    Movie.create! movie
+    steps %Q{
+      Given I am on the RottenPotatoes home page
+      Then I should see "#{movie[:title]}"
+    }
   end
 #  flunk "Unimplemented"
 end
