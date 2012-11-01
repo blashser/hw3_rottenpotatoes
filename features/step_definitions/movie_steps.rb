@@ -6,15 +6,14 @@ Given /the following movies exist/ do |movies_table|
     Given I am on the RottenPotatoes home page
     When I follow "Add new movie"
     Then I should be on the Create New Movie page
-    When I fill in 'Title' with "#{movie[:title]}"
-    And I select "#{movie[:rating]}" from 'Rating'
-    And I select "#{movie[:release_date]}" from 'Released On'
-    And I press 'Save Changes'
+    When I fill in "Title" with "#{movie[:title]}"
+    And I select "#{movie[:rating]}" from "Rating"
+    And I press "Save Changes"
     Then I should be on the RottenPotatoes home page
     And I should see "#{movie[:title]}"
    }
   end
-  flunk "Unimplemented"
+#  flunk "Unimplemented"
 end
 
 # Make sure that one string (regexp) occurs before or after another one
