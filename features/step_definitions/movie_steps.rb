@@ -2,8 +2,17 @@
 
 Given /the following movies exist/ do |movies_table|
   movies_table.hashes.each do |movie|
-    # each returned element will be a hash whose key is the table header.
-    # you should arrange to add that movie to the database here.
+   steps %Q{
+    Given I am on the RottenPotatoes home page
+    When I follow "Add new movie"
+    Then I should be on the Create New Movie page
+    When I fill in 'Title' with "#{movie[:title]}"
+    And I select "#{movie[:rating]}" from 'Rating'
+    And I select "#{movie[:release_date]}" from 'Released On'
+    And I press 'Save Changes'
+    Then I should be on the RottenPotatoes home page
+    And I should see "#{movie[:title]}"
+   }
   end
   flunk "Unimplemented"
 end
