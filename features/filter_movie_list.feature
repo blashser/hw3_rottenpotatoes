@@ -23,7 +23,7 @@ Background: movies have been added to database
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
   Given I check the following ratings: PG, R
-  And   I uncheck the following ratings: G, PG-13
+  And   I uncheck the following ratings: G, PG-13, NC-17
   And   I press "Refresh"
   Then I should be on the RottenPotatoes home page
   And  I should see following movies: The Terminator, When Harry Met Sally, Amelie, The Incredibles, Raiders of the Lost Ark
@@ -33,4 +33,7 @@ Scenario: no ratings selected
   # see assignment
 
 Scenario: all ratings selected
-  # see assignment
+  Given I am on the RottenPotatoes home page
+  Then  I check the following ratings: G, PG, PG-13, NC-17, R
+  And   I press "Refresh"
+  Then I should see all of the movies
