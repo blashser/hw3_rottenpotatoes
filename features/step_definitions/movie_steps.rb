@@ -24,7 +24,7 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   regexp = /#{e1}.*#{e2}/m
   unless page.body[ regexp ] #  page.content  is the entire content of the page as a string.
-    flunk "Error"
+    steps %Q{ Then I should see /#{regexp}/ }
   end
 end
 
@@ -44,6 +44,6 @@ Then /^I should see all of the movies$/ do
   databasemovies   = Movie.all.size
   moviesshowinpage = page.all( "#movies tr" ).size - 1
   if databasemovies != moviesshowinpage
-    flunk "Error"
+    steps %Q{ Then I should see "ErrorErrorError" }
   end
 end
