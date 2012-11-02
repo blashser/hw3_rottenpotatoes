@@ -14,6 +14,12 @@ Given /the following movies exist/ do |movies_table|
 #  flunk "Unimplemented"
 end
 
+Then /I should (not )?see following movies: (.*)$/ do |negative, array|
+  array.split(/, */).each do |mov|
+    steps %Q{ Then I should #{negative}see "#{mov}" }
+  end
+end
+
 # Make sure that one string (regexp) occurs before or after another one
 #   on the same page
 
@@ -28,6 +34,9 @@ end
 #  "When I check the following ratings: G"
 
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
+  rating_list.split(/, */).each do |rating|
+    steps %Q{ When I #{uncheck}check "ratings[#{rating}]" }
+  end
   # HINT: use String#split to split up the rating_list, then
   #   iterate over the ratings and reuse the "When I check..." or
   #   "When I uncheck..." steps in lines 89-95 of web_steps.rb
