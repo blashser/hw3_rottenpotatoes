@@ -30,10 +30,30 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
   And  I should not see following movies: Aladdin, The Help, Chocolat, 2001: A Space Odyssey, Chicken Run
 
 Scenario: no ratings selected
-  # see assignment
+  Given I am on the RottenPotatoes home page
+  Then  I check the following ratings: G, PG, PG-13, NC-17, R
+  And   I press "Refresh"
+  Then  I uncheck the following ratings: G
+  And   I press "Refresh"
+  Then  I should not see following movies: Aladdin, 2001: A Space Odyssey, Chicken Run
+  Then  I uncheck the following ratings: PG
+  And   I press "Refresh"
+  Then  I should not see following movies: Aladdin, 2001: A Space Odyssey, Chicken Run
+  And   I should not see following movies: The Incredibles, Raidres of the Lost Ark
+  Then  I uncheck the following ratings: PG-13, NC-17
+  And   I press "Refresh"
+  Then  I should not see following movies: Aladdin, 2001: A Space Odyssey, Chicken Run
+  And   I should not see following movies: The Incredibles, Raidres of the Lost Ark
+  And   I should not see following movies: The Help, Chocolat
+  Then  I uncheck the following ratings: R
+  Then  I should not see following movies: Aladdin, 2001: A Space Odyssey, Chicken Run
+  And   I should not see following movies: The Incredibles, Raidres of the Lost Ark
+  And   I should not see following movies: The Help, Chocolat
+  And   I should see following movies: The Terminator, When Harry Met Sally, Amelie  
 
 Scenario: all ratings selected
   Given I am on the RottenPotatoes home page
   Then  I check the following ratings: G, PG, PG-13, NC-17, R
   And   I press "Refresh"
-  Then I should see all of the movies
+  Then I should be on the RottenPotatoes home page
+  And  I should see all of the movies
